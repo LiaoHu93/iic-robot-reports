@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>奂影S1 · 楼内小扫机器人 · 万物云投创中心</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Microsoft YaHei','PingFang SC',Arial,sans-serif;background:#eef3fb;color:#1a2340;line-height:1.65}
+.container{width:100%;max-width:100%;margin:0 auto;background:#fff;overflow:hidden}
+
+/* ====== 封面 ====== */
+.cover{background:linear-gradient(135deg,#0c2a4a 0%,#0e4a7a 45%,#38bdf8 100%);position:relative;overflow:hidden;display:flex;flex-direction:column;padding:8px 0 0}
+.cover::before{content:'';position:absolute;top:-10%;right:-5%;width:50%;height:130%;background:rgba(255,255,255,0.06);transform:skewX(-12deg);border-left:2px solid rgba(255,255,255,0.12)}
+.cover::after{content:'';position:absolute;top:-10%;right:8%;width:30%;height:130%;background:rgba(255,255,255,0.04);transform:skewX(-12deg)}
+.cover-header{display:flex;justify-content:space-between;align-items:flex-start;padding:10px 16px;position:relative;z-index:20}
+.cover-iic{font-size:15px;font-weight:900;color:#38bdf8;letter-spacing:1px;text-shadow:0 0 24px rgba(56,189,248,0.5)}
+.cover-logo{text-align:right}
+.logo-text{color:#fff;font-size:14px;font-weight:700;letter-spacing:1px}
+.logo-sub{color:rgba(255,255,255,0.6);font-size:11px;letter-spacing:0.5px}
+.cover-main{display:flex;flex-direction:column;align-items:center;padding:12px 16px 16px;position:relative;z-index:10}
+.cover-content{text-align:center;margin-bottom:14px}
+.cover-h1{font-size:26px;font-weight:900;color:#fff;line-height:1.2;margin-bottom:6px;letter-spacing:1px}
+.cover-h2{font-size:16px;color:#38bdf8;font-weight:700;letter-spacing:1px;margin-bottom:10px}
+.cover-line{width:50px;height:3px;background:linear-gradient(90deg,#0ea5e9,#7dd3fc);border-radius:2px;margin:0 auto 10px}
+.cover-meta{display:flex;flex-direction:column;align-items:center;gap:5px}
+.cover-badge{background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.20);color:#fff;font-size:12px;padding:4px 12px;border-radius:20px}
+.cover-date{color:rgba(255,255,255,0.55);font-size:11px}
+.cover-img-wrap{width:100%;display:flex;justify-content:center;align-items:center;padding:0 16px 8px;height:200px}
+.cover-img{max-width:600px;width:100%;max-height:200px;object-fit:contain}
+.cover-bar{height:5px;background:linear-gradient(90deg,#0ea5e9 0%,#7dd3fc 50%,#0ea5e9 100%)}
+
+/* ====== 章节头 ====== */
+.sechead{background:linear-gradient(90deg,#0c3460 0%,#0ea5e9 100%);padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
+.sechead-title{font-size:15px;font-weight:700;color:#fff;letter-spacing:1px}
+.sechead-tag{font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:0.5px}
+
+/* ====== 内容区 ====== */
+.body{padding:14px}
+
+/* ====== 章节标题 ====== */
+.sec-title{display:flex;align-items:center;gap:8px;margin-bottom:10px;margin-top:4px}
+.sec-num{width:26px;height:26px;background:#0ea5e9;color:#fff;font-size:13px;font-weight:900;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-h{font-size:16px;font-weight:800;color:#1a2340}
+.sec-h span{color:#0ea5e9}
+
+/* ====== 引言框 ====== */
+.quote{background:#f0f7ff;border-left:4px solid #0ea5e9;border-radius:8px;padding:10px 14px;font-size:13px;color:#1e3a5f;line-height:1.7;margin-bottom:12px}
+
+/* ====== KPI行 ====== */
+.kpi-row{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px}
+.kpi{background:#fff;border:2px solid #0ea5e9;border-radius:8px;padding:12px 8px;text-align:center}
+.kpi-val{font-size:24px;font-weight:900;line-height:1;margin-bottom:4px;color:#0c3460}
+.kpi-val.green{color:#16a34a}
+.kpi-val.teal{color:#0d9488}
+.kpi-lbl{font-size:11px;color:#2d3a5a;letter-spacing:0.3px}
+
+/* ====== 优势卡 ====== */
+.adv-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.adv-card{background:#f8faff;border:1px solid #dbeafe;border-radius:10px;padding:14px 12px;border-top:3px solid #0ea5e9;display:flex;flex-direction:column;gap:6px}
+.adv-icon-row{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.adv-icon{font-size:22px;flex-shrink:0}
+.adv-icon-img{width:36px;height:36px;border-radius:8px;object-fit:contain}
+.adv-name{font-size:13px;font-weight:800;color:#0c3460;line-height:1.3}
+.adv-desc{font-size:11px;color:#3a4a6a;line-height:1.6}
+
+/* ====== 场景卡 ====== */
+.scene-row{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.scene-card{flex:1;min-width:80px;background:#f0f7ff;border:1px solid #dbeafe;border-radius:8px;padding:10px 8px;text-align:center}
+.scene-icon{font-size:24px;margin-bottom:4px}
+.scene-icon-img{width:44px;height:44px;border-radius:8px;object-fit:contain;margin:0 auto 4px;display:block}
+.scene-name{font-size:12px;font-weight:700;color:#0c3460;margin-bottom:3px}
+.scene-lbl{font-size:10px;color:#3a4a6a;line-height:1.4}
+
+/* ====== 参数表 ====== */
+.ptable{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px}
+.ptable th{background:linear-gradient(90deg,#0c3460,#1565c0);color:#fff;padding:8px 10px;text-align:left;font-weight:700}
+.ptable th:first-child{border-radius:6px 0 0 0;width:38%}
+.ptable th:last-child{border-radius:0 6px 0 0}
+.ptable td{padding:8px 10px;color:#2d3a5a;border-bottom:1px solid #e8f0ff;line-height:1.6;vertical-align:top}
+.ptable tr:nth-child(even) td{background:#f5f8ff}
+.ptable tr:last-child td{border-bottom:none}
+.ptable td:first-child{font-weight:700;color:#0c3460}
+
+/* ====== FAQ模块 ====== */
+.faq-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.faq-card{background:#f8faff;border:1px solid #dbeafe;border-left:4px solid #0ea5e9;border-radius:8px;padding:12px 14px}
+.faq-q{font-size:13px;font-weight:800;color:#0c3460;margin-bottom:6px;display:flex;align-items:flex-start;gap:8px}
+.faq-q-icon{background:#0ea5e9;color:#fff;font-size:11px;font-weight:700;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.faq-q-text{flex:1}
+.faq-a{font-size:12px;color:#2d3a5a;line-height:1.7;padding-left:28px}
+
+/* ====== 安全标签 ====== */
+.safety-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.safety-chip{background:#f0fff4;border:1px solid #68d391;border-radius:8px;padding:8px 12px;flex:1;min-width:120px;text-align:center}
+.safety-chip-icon{font-size:20px;margin-bottom:4px}
+.safety-chip-name{font-size:12px;font-weight:700;color:#276749;margin-bottom:2px}
+.safety-chip-desc{font-size:10px;color:#3a4a6a;line-height:1.4}
+
+/* ====== 效益高亮框 ====== */
+.benefit-box{background:linear-gradient(135deg,#0c3460 0%,#0e5a8a 100%);border-radius:10px;padding:16px 18px;color:#fff;margin-bottom:12px;border-left:4px solid #38bdf8}
+.benefit-title{font-size:14px;font-weight:800;margin-bottom:10px;color:#7dd3fc}
+.benefit-title::before{content:'💡 '}
+.benefit-list{list-style:none;padding:0}
+.benefit-list li{font-size:12px;color:#e0f2fe;padding:4px 0 4px 16px;position:relative;line-height:1.7}
+.benefit-list li::before{content:'▸';position:absolute;left:0;color:#38bdf8;font-weight:700}
+
+/* ====== 产品图展示 ====== */
+.product-gallery{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.gallery-main{background:#f0f7ff;border-radius:10px;padding:12px;text-align:center;border:1px solid #dbeafe}
+.gallery-main img{max-width:100%;max-height:220px;object-fit:contain}
+.gallery-thumbs{display:flex;gap:8px;justify-content:center}
+.gallery-thumb{background:#f8faff;border:1px solid #dbeafe;border-radius:8px;padding:6px;width:72px;height:72px;display:flex;align-items:center;justify-content:center}
+.gallery-thumb img{max-width:100%;max-height:56px;object-fit:contain}
+
+/* ====== 分隔线 ====== */
+.divider{height:1px;background:linear-gradient(90deg,transparent,#dbeafe,transparent);margin:12px 0}
+
+/* ====== 脚注 ====== */
+.footnote{font-size:11px;color:#8899bb;text-align:center;padding:10px 16px 16px;line-height:1.6}
+
+.tag-green{background:#dcfce7;color:#166534;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700}
+.tag-blue{background:#dbeafe;color:#1e40af;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700}
+.tag-amber{background:#fef3c7;color:#92400e;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ====== 封面 ====== -->
+<div class="cover">
+  <div class="cover-header">
+    <div class="cover-iic"></div>
+    <div class="cover-logo">
+      <div class="logo-text"></div>
+      <div class="logo-sub"></div>
+    </div>
+  </div>
+  <div class="cover-main">
+    <div class="cover-content">
+      <div class="cover-h1">奂影 S1 · 楼内小扫机器人</div>
+      <div class="cover-line"></div>
+      <div class="cover-h2">更低成本 · 更高效率 · 更灵活</div>
+      <div class="cover-meta">
+        <div class="cover-badge"> 产品一纸禅</div>
+        <div class="cover-date">2026年4月</div>
+      </div>
+    </div>
+    <div class="cover-img-wrap">
+      <img class="cover-img" src="image4.png" />
+    </div>
+  </div>
+</div>
+<div class="cover-bar"></div>
+
+<!-- ====== 第一节：产品概览 ====== -->
+<div class="sechead">
+  <span class="sechead-title">01 · 产品概览</span>
+  <span class="sechead-tag">Product Overview</span>
+</div>
+<div class="body">
+
+  <div class="quote">
+    奂影 S1 专注于楼内小扫场景，体型紧凑，可轻松通过 600mm 通道，覆盖电梯厅、走廊、大堂等传统清洁设备难以进入的区域，实现公区清洁全覆盖。
+  </div>
+
+  <div class="sec-title">
+    <div class="sec-num">1</div>
+    <div class="sec-h">核心<span>场景</span></div>
+  </div>
+  <div class="scene-row">
+    <div class="scene-card">
+      <img class="scene-icon-img" src="image1.png" />
+      <div class="scene-name">住宅</div>
+      <div class="scene-lbl">楼层公区<br>大堂·走廊</div>
+    </div>
+    <div class="scene-card">
+      <img class="scene-icon-img" src="image2.png" />
+      <div class="scene-name">写字楼</div>
+      <div class="scene-lbl">办公楼层<br>电梯厅</div>
+    </div>
+    <div class="scene-card">
+      <img class="scene-icon-img" src="image3.png" />
+      <div class="scene-name">公寓</div>
+      <div class="scene-lbl">集中式公寓<br>走廊公区</div>
+    </div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-val">500–5,000<span style="font-size:14px;color:#2d3a5a;font-weight:400">㎡</span></div>
+      <div class="kpi-lbl">推荐覆盖面积</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val green">700<span style="font-size:14px;color:#2d3a5a;font-weight:400">㎡/h</span></div>
+      <div class="kpi-lbl">实测清洁效率</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val teal">55<span style="font-size:14px;color:#2d3a5a;font-weight:400">dB</span></div>
+      <div class="kpi-lbl">夜间作业噪音</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val">15–30<span style="font-size:14px;color:#2d3a5a;font-weight:400">%</span></div>
+      <div class="kpi-lbl">保洁成本降幅</div>
+    </div>
+  </div>
+
+</div><!-- /body -->
+
+<!-- ====== 第二节：产品优势 ====== -->
+<div class="sechead">
+  <span class="sechead-title">02 · 产品优势</span>
+  <span class="sechead-tag">Key Advantages</span>
+</div>
+<div class="body">
+
+  <div class="adv-grid">
+    <div class="adv-card">
+      <div class="adv-icon-row">
+        <div class="adv-name">窄缝/低处清洁</div>
+      </div>
+      <div class="adv-desc">体型小，轻松进入传统设备无法覆盖的死角区域，覆盖无遗漏。</div>
+    </div>
+    <div class="adv-card">
+      <div class="adv-icon-row">
+        <div class="adv-name">持续稳定作业</div>
+      </div>
+      <div class="adv-desc">可无间断连续工作，完成清洁后自动返回充电桩充电续扫，无需人工干预。</div>
+    </div>
+    <div class="adv-card">
+      <div class="adv-icon-row">
+        <div class="adv-name">夜间无人值守</div>
+      </div>
+      <div class="adv-desc">可设置定时清洁，夜间自动作业，不打扰业主白天正常使用。</div>
+    </div>
+    <div class="adv-card">
+      <div class="adv-icon-row">
+        <div class="adv-name">清洁质量一致</div>
+      </div>
+      <div class="adv-desc">程序化标准化作业，每次清洁质量稳定，不受人员操作熟练度影响。</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="sec-title">
+    <div class="sec-num">2</div>
+    <div class="sec-h">vs 人工<span>对比</span></div>
+  </div>
+
+  <table class="ptable" style="margin-bottom:10px">
+    <thead>
+      <tr>
+        <th>对比维度</th>
+        <th>传统人工</th>
+        <th>奂影 S1</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>窄缝/低处清洁</td>
+        <td>难进入，易遗漏</td>
+        <td>体型小，轻松覆盖无死角</td>
+      </tr>
+      <tr>
+        <td>持续作业能力</td>
+        <td>易疲劳，效率波动</td>
+        <td>可无间断连续工作，自动充电续扫</td>
+      </tr>
+      <tr>
+        <td>夜间清洁</td>
+        <td>需排班，人力成本高</td>
+        <td>自动定时作业，无人值守</td>
+      </tr>
+      <tr>
+        <td>清洁一致性</td>
+        <td>受人员操作影响</td>
+        <td>程序化作业，质量稳定</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div><!-- /body -->
+
+<!-- ====== 第三节：核心参数 ====== -->
+<div class="sechead">
+  <span class="sechead-title">03 · 核心参数</span>
+  <span class="sechead-tag">Specifications</span>
+</div>
+<div class="body">
+
+  <table class="ptable">
+    <thead>
+      <tr>
+        <th>参数项目</th>
+        <th>规格数据</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>产品尺寸（L×W×H）</td>
+        <td>540 × 440 × 617 mm</td>
+      </tr>
+      <tr>
+        <td>清洁宽度（洗地/尘推）</td>
+        <td>330 mm</td>
+      </tr>
+      <tr>
+        <td>清洁宽度（扫地/吸尘）</td>
+        <td>410 mm</td>
+      </tr>
+      <tr>
+        <td>最大行驶速度</td>
+        <td>0.8 m/s</td>
+      </tr>
+      <tr>
+        <td>理论清洁效率（洗地/尘推）</td>
+        <td>950 ㎡/h</td>
+      </tr>
+      <tr>
+        <td>理论清洁效率（扫地/吸尘）</td>
+        <td>1,180 ㎡/h</td>
+      </tr>
+      <tr>
+        <td>清水箱 / 污水箱容量</td>
+        <td>11.5 L / 10.5 L</td>
+      </tr>
+      <tr>
+        <td>最小通过宽度</td>
+        <td>600 mm</td>
+      </tr>
+      <tr>
+        <td>最大爬坡能力</td>
+        <td>8°（≈ 8 cm 坡高）</td>
+      </tr>
+      <tr>
+        <td>电池类型</td>
+        <td>40 Ah，磷酸铁锂电池</td>
+      </tr>
+      <tr>
+        <td>续航能力（吸尘）</td>
+        <td>4 小时</td>
+      </tr>
+      <tr>
+        <td>续航能力（洗地）</td>
+        <td>4.5 小时</td>
+      </tr>
+      <tr>
+        <td>续航能力（尘推）</td>
+        <td>10 小时</td>
+      </tr>
+      <tr>
+        <td>续航能力（扫地）</td>
+        <td>14 小时</td>
+      </tr>
+      <tr>
+        <td>充电时间</td>
+        <td>2 小时</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="tag-amber" style="font-size:11px;padding:6px 10px;display:inline-block;border-radius:6px;margin-bottom:4px">
+    ⚠️ 注：本文所涉及数据参数为测试环境运行数据，仅供参考；请以实际项目运行数据为准。
+  </div>
+
+</div><!-- /body -->
+
+<!-- ====== 第四节：常见问题 ====== -->
+<div class="sechead">
+  <span class="sechead-title">04 · 常见问题</span>
+  <span class="sechead-tag">FAQ</span>
+</div>
+<div class="body">
+
+  <div class="faq-grid">
+
+    <div class="faq-card">
+      <div class="faq-q">
+        <div class="faq-q-icon">Q</div>
+        <div class="faq-q-text">清洁效率怎么样？实际能替代多少人工？</div>
+      </div>
+      <div class="faq-a">
+        洗扫吸拖一体，一次完成，实际工作效率达 <b>700 ㎡/小时</b>。可设置定时清洁，夜间自动工作，噪音实测 <b>55 分贝</b>，不打扰业主。搭配工作站可自动返回清洗拖布、倒污水、充电，日常无需人工介入。
+      </div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q">
+        <div class="faq-q-icon">Q</div>
+        <div class="faq-q-text">要不要人工一直跟着？</div>
+      </div>
+      <div class="faq-a">
+        搭配工作站，可自动返回清洗拖布、倒污水、充电，日常无需人工介入。另有移动水箱版本，无需接上下水，一次加水可用约 <b>1 周</b>（每天约 13 L 水），进一步减少人工加水频次。
+      </div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q">
+        <div class="faq-q-icon">Q</div>
+        <div class="faq-q-text">维护简单吗？成本高不高？</div>
+      </div>
+      <div class="faq-a">
+        污水箱自动清洁，尘袋/滤网可拆卸，日常只需简单清理。一机替代多人巡回保洁，降低长期人力成本，减少清洁工具采购。项目实测：公寓及商写项目，可至少节约一名楼内保洁，降低 <b>15%–30%</b> 保洁成本（参考估算，建议以试点实测为准）。
+      </div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q">
+        <div class="faq-q-icon">Q</div>
+        <div class="faq-q-text">安全吗？会不会撞到人或东西？</div>
+      </div>
+      <div class="faq-a">
+        多传感器融合方案，遇人减速绕行；可识别火灾等异常情况并及时告警。8 cm 以内坡度可平稳通过，适合地下车库缓坡场景。
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="sec-title">
+   
+    <div class="sec-h">安全与<span>保障</span></div>
+  </div>
+  <div class="safety-row">
+    <div class="safety-chip">
+      <div class="safety-chip-icon">🛡️</div>
+      <div class="safety-chip-name">多传感器避障</div>
+      <div class="safety-chip-desc">遇人减速绕行<br>异常实时告警</div>
+    </div>
+    <div class="safety-chip">
+      <div class="safety-chip-icon">🛤️</div>
+      <div class="safety-chip-name">坡道通行</div>
+      <div class="safety-chip-desc">8° 以内坡道平稳通过<br>适合地库缓坡场景</div>
+    </div>
+    <div class="safety-chip">
+      <div class="safety-chip-icon">⏰</div>
+      <div class="safety-chip-name">夜间作业</div>
+      <div class="safety-chip-desc">55 dB 低噪音运行<br>不打扰业主白天使用</div>
+    </div>
+  </div>
+
+</div><!-- /body -->
+
+<!-- ====== 第五节：效益洞察 ====== -->
+<div class="sechead">
+  <span class="sechead-title">05 · 效益洞察</span>
+  <span class="sechead-tag">Value Insights</span>
+</div>
+<div class="body">
+
+  <div class="benefit-box">
+    <div class="benefit-title">万物云视角：奂影 S1 核心价值主张</div>
+    <ul class="benefit-list">
+      <li>楼内小扫场景的"盲区填补者"——600 mm 通过宽度覆盖电梯厅、走廊等传统设备禁区</li>
+      <li>夜间无人值守作业，解决物业保洁高峰期人力错配问题</li>
+      <li>实测 700 ㎡/h + 15%–30% 成本降幅，为物业提供可量化的降本路径</li>
+      <li>程序化清洁质量稳定，弥补人工清洁效率波动短板</li>
+      <li>适合万物云在管项目：写字楼、公寓及住宅大堂等楼内公区场景</li>
+    </ul>
+  </div>
+
+  <div class="product-gallery">
+    <div class="gallery-main">
+      <img src="image4.png" />
+    </div>
+    <div class="gallery-thumbs">
+      
+    </div>
+  </div>
+
+</div><!-- /body -->
+
+<div class="footnote">
+  本报告由万物云投创中心整理 · IIC 生态行业参访简报 · 奂影 S1 产品一纸禅<br>
+  数据来源：奂影 S1 产品手册 · 仅供参考，请以实际项目运行数据为准
+</div>
+
+</div><!-- /container -->
+</body>
+</html>
